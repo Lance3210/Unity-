@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class MyGUITexture : MyGUIControlBase {
+public class MyGUITexture : MyGUIControlBase
+{
 	[Header("Image Property")]
 	public ScaleMode scaleMode = ScaleMode.StretchToFill;
 	public Color color = Color.white;
@@ -9,10 +10,12 @@ public class MyGUITexture : MyGUIControlBase {
 	public float borderWidth;
 	public float borderRadius;
 
-	protected override void Style() {
+	protected override void Style()
+	{
 		GUI.DrawTexture(pos.RectPos, content.image, scaleMode, alphaBlend, imageAspect, color, borderWidth, borderRadius);
 	}
-	protected override void NoStyle() {
+	protected override void NoStyle()
+	{
 		GUI.DrawTexture(pos.RectPos, content.image, scaleMode, alphaBlend, imageAspect, color, borderWidth, borderRadius);
 	}
 }

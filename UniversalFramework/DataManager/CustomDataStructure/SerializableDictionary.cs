@@ -7,26 +7,32 @@ using System.Xml.Serialization;
 /// </summary>
 /// <typeparam name="K">¼ü</typeparam>
 /// <typeparam name="V">Öµ</typeparam>
-public class SerializableDictionary<K, V> : Dictionary<K, V>, IXmlSerializable {
-	public XmlSchema GetSchema() {
+public class SerializableDictionary<K, V> : Dictionary<K, V>, IXmlSerializable
+{
+	public XmlSchema GetSchema()
+	{
 		return null;
 	}
 
-	public void ReadXml(XmlReader reader) {
+	public void ReadXml(XmlReader reader)
+	{
 		XmlSerializer keyStr = new XmlSerializer(typeof(K));
 		XmlSerializer valueStr = new XmlSerializer(typeof(V));
 		reader.Read();
-		while (reader.NodeType != XmlNodeType.EndElement) {
+		while (reader.NodeType != XmlNodeType.EndElement)
+		{
 			K key = (K)keyStr.Deserialize(reader);
 			V value = (V)valueStr.Deserialize(reader);
 			Add(key, value);
 		}
 	}
 
-	public void WriteXml(XmlWriter writer) {
+	public void WriteXml(XmlWriter writer)
+	{
 		XmlSerializer keyStr = new XmlSerializer(typeof(K));
 		XmlSerializer valueStr = new XmlSerializer(typeof(V));
-		foreach (KeyValuePair<K, V> item in this) {
+		foreach (KeyValuePair<K, V> item in this)
+		{
 			keyStr.Serialize(writer, item.Key);
 			valueStr.Serialize(writer, item.Value);
 		}

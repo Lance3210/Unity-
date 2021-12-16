@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class MyGUIPos {
+public class MyGUIPos
+{
 	public Vector2 offset;
 	public float w, h;
 	public AlignType screenAlign;
@@ -16,8 +17,10 @@ public class MyGUIPos {
 			return finalRect;
 		}
 	}
-	private void AlignAtScreen(AlignType alignType) {
-		switch (alignType) {
+	private void AlignAtScreen(AlignType alignType)
+	{
+		switch (alignType)
+		{
 			case AlignType.TopLeft:
 				screenX = 0;
 				screenY = 0;
@@ -56,8 +59,10 @@ public class MyGUIPos {
 				break;
 		}
 	}
-	private void AlignAtSelf(AlignType alignType) {
-		switch (alignType) {
+	private void AlignAtSelf(AlignType alignType)
+	{
+		switch (alignType)
+		{
 			case AlignType.TopLeft:
 				selfX = 0;
 				selfY = 0;
@@ -96,7 +101,8 @@ public class MyGUIPos {
 				break;
 		}
 	}
-	private void ResolutionAdaptation() {
+	private void ResolutionAdaptation()
+	{
 		AlignAtSelf(selfAlign);
 		AlignAtScreen(screenAlign);
 		finalRect.x = screenX - selfX + offset.x;
@@ -105,7 +111,8 @@ public class MyGUIPos {
 		finalRect.height = h;
 	}
 }
-public enum AlignType {
+public enum AlignType
+{
 	TopLeft,
 	TopCenter,
 	TopRight,

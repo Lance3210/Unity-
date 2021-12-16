@@ -40,18 +40,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5319894968071504167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf78eb020fb4e74f9ea99cadba4a4bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e00162a01cc3304b96d9d7a6681e2a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pos:
     offset: {x: 0, y: 0}
-    w: 100
-    h: 100
-    screenAlign: 4
-    selfAlign: 4
+    w: 0
+    h: 0
+    screenAlign: 0
+    selfAlign: 0
   content:
     m_Text: 
-    m_Image: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+    m_Image: {fileID: 0}
     m_Tooltip: 
   isOpenStyle: 0
   style:

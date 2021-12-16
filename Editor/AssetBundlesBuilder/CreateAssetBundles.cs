@@ -2,88 +2,106 @@ using UnityEditor;
 using System.IO;
 
 /// <summary>
-/// ÓÃÓÚ´´½¨AB°ü£¬Ä¬ÈÏÊ¹ÓÃLZ4Ñ¹ËõËã·¨
+/// ç”¨äºåˆ›å»ºABåŒ…ï¼Œé»˜è®¤ä½¿ç”¨LZ4å‹ç¼©ç®—æ³•
 /// </summary>
-public class CreateAssetBundles {
-	[MenuItem("Assets/Build AssetBundles/PC")]
-	public static void BuildAllAssetBundles() {
-		string assetBundleDirectory = "Assets/AssetBundles/PC";//±£´æÔÚ¹¤³ÌÎÄ¼ş¼ĞµÄÂ·¾¶
-		if (!Directory.Exists(assetBundleDirectory)) {
-			Directory.CreateDirectory(assetBundleDirectory);
-		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
-			BuildAssetBundleOptions.ChunkBasedCompression,
-			BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/PC");//¸´ÖÆÒ»·İÔÚÁ÷ÎÄ¼ş¼Ğ
-        AssetDatabase.Refresh();//Ë¢ĞÂÎÄ¼ş¼Ğ
-    }
-
-	[MenuItem("Assets/Build AssetBundles/IOS")]
-    public static void BuildAllAssetBundles_IOS() {
-		string assetBundleDirectory = "Assets/AssetBundles/IOS";//±£´æÔÚ¹¤³ÌÎÄ¼ş¼ĞµÄÂ·¾¶
-		if (!Directory.Exists(assetBundleDirectory)) {
-			Directory.CreateDirectory(assetBundleDirectory);
-		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
-			BuildAssetBundleOptions.ChunkBasedCompression,
-			BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/IOS");//¸´ÖÆÒ»·İÔÚÁ÷ÎÄ¼ş¼Ğ
-        AssetDatabase.Refresh();//Ë¢ĞÂÎÄ¼ş¼Ğ
-    }
-
-	[MenuItem("Assets/Build AssetBundles/Android")]
-    public static void BuildAllAssetBundles_Android() {
-		string assetBundleDirectory = "Assets/AssetBundles/Android";//±£´æÔÚ¹¤³ÌÎÄ¼ş¼ĞµÄÂ·¾¶
-		if (!Directory.Exists(assetBundleDirectory)) {
-			Directory.CreateDirectory(assetBundleDirectory);
-		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
-			BuildAssetBundleOptions.ChunkBasedCompression,
-			BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Android");//¸´ÖÆÒ»·İÔÚÁ÷ÎÄ¼ş¼Ğ
-        AssetDatabase.Refresh();//Ë¢ĞÂÎÄ¼ş¼Ğ
-    }
-
-	[MenuItem("Assets/Build AssetBundles/Other")]
-    public static void BuildAllAssetBundles_Other() {
-		string assetBundleDirectory = "Assets/AssetBundles/Other";//±£´æÔÚ¹¤³ÌÎÄ¼ş¼ĞµÄÂ·¾¶
-		if (!Directory.Exists(assetBundleDirectory)) {
-			Directory.CreateDirectory(assetBundleDirectory);
-		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
-			BuildAssetBundleOptions.ChunkBasedCompression,
-			BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Other");//¸´ÖÆÒ»·İÔÚÁ÷ÎÄ¼ş¼Ğ
-        AssetDatabase.Refresh();//Ë¢ĞÂÎÄ¼ş¼Ğ
-    }
-
-    //¸´ÖÆÒ»·İÖÁStreamingAssetsÎÄ¼ş¼ĞÄ¿Â¼ÄÚ
-    private static void CopyAllFiles(string sourceDirectory, string targetDirectory) {
-		if (!Directory.Exists(targetDirectory)) {
-			Directory.CreateDirectory(targetDirectory);
-		}
-		try {
-			DirectoryInfo dir = new DirectoryInfo(sourceDirectory);
-			FileSystemInfo[] fileinfos = dir.GetFileSystemInfos();//»ñÈ¡Ä¿Â¼ÏÂ£¨²»°üº¬×ÓÄ¿Â¼£©µÄÎÄ¼şºÍ×ÓÄ¿Â¼
-			foreach (var fileinfo in fileinfos) {
-				//ÅĞ¶ÏÊÇ·ñÊÇÎÄ¼ş¼Ğ
-				if (fileinfo is DirectoryInfo) {
-					if (!Directory.Exists(targetDirectory + "\\" + fileinfo.Name)) {
-						Directory.CreateDirectory(targetDirectory + "\\" + fileinfo.Name);//Ä¿±êÄ¿Â¼ÏÂ²»´æÔÚ´ËÎÄ¼ş¼Ğ¼´´´½¨×ÓÎÄ¼ş¼Ğ
-					}
-					CopyAllFiles(fileinfo.FullName, targetDirectory + "\\" + fileinfo.Name);//µİ¹éµ÷ÓÃ¸´ÖÆ×ÓÎÄ¼ş¼Ğ
-				}
-				else {
-					if (fileinfo.FullName.Contains(".meta")) {
-						continue;//ÂÔ¹ımateÎÄ¼ş
-					}
-					File.Copy(fileinfo.FullName, targetDirectory + "\\" + fileinfo.Name, true);//²»ÊÇÎÄ¼ş¼Ğ¼´¸´ÖÆÎÄ¼ş
-				}
-			}
-		}
-		catch {
-			throw;
+public class CreateAssetBundles
+{
+    [MenuItem("Assets/Build AssetBundles/PC")]
+    public static void BuildAllAssetBundles()
+    {
+        string assetBundleDirectory = "Assets/AssetBundles/PC";//ä¿å­˜åœ¨å·¥ç¨‹æ–‡ä»¶å¤¹çš„è·¯å¾„
+        if (!Directory.Exists(assetBundleDirectory))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
         }
-        AssetDatabase.Refresh();//Ë¢ĞÂÎÄ¼ş¼Ğ
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+            BuildAssetBundleOptions.ChunkBasedCompression,
+            BuildTarget.StandaloneWindows);
+        CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/PC");//å¤åˆ¶ä¸€ä»½åœ¨æµæ–‡ä»¶å¤¹
+        AssetDatabase.Refresh();//åˆ·æ–°æ–‡ä»¶å¤¹
+    }
+
+    [MenuItem("Assets/Build AssetBundles/IOS")]
+    public static void BuildAllAssetBundles_IOS()
+    {
+        string assetBundleDirectory = "Assets/AssetBundles/IOS";//ä¿å­˜åœ¨å·¥ç¨‹æ–‡ä»¶å¤¹çš„è·¯å¾„
+        if (!Directory.Exists(assetBundleDirectory))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+            BuildAssetBundleOptions.ChunkBasedCompression,
+            BuildTarget.StandaloneWindows);
+        CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/IOS");//å¤åˆ¶ä¸€ä»½åœ¨æµæ–‡ä»¶å¤¹
+        AssetDatabase.Refresh();//åˆ·æ–°æ–‡ä»¶å¤¹
+    }
+
+    [MenuItem("Assets/Build AssetBundles/Android")]
+    public static void BuildAllAssetBundles_Android()
+    {
+        string assetBundleDirectory = "Assets/AssetBundles/Android";//ä¿å­˜åœ¨å·¥ç¨‹æ–‡ä»¶å¤¹çš„è·¯å¾„
+        if (!Directory.Exists(assetBundleDirectory))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+            BuildAssetBundleOptions.ChunkBasedCompression,
+            BuildTarget.StandaloneWindows);
+        CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Android");//å¤åˆ¶ä¸€ä»½åœ¨æµæ–‡ä»¶å¤¹
+        AssetDatabase.Refresh();//åˆ·æ–°æ–‡ä»¶å¤¹
+    }
+
+    [MenuItem("Assets/Build AssetBundles/Other")]
+    public static void BuildAllAssetBundles_Other()
+    {
+        string assetBundleDirectory = "Assets/AssetBundles/Other";//ä¿å­˜åœ¨å·¥ç¨‹æ–‡ä»¶å¤¹çš„è·¯å¾„
+        if (!Directory.Exists(assetBundleDirectory))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+            BuildAssetBundleOptions.ChunkBasedCompression,
+            BuildTarget.StandaloneWindows);
+        CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Other");//å¤åˆ¶ä¸€ä»½åœ¨æµæ–‡ä»¶å¤¹
+        AssetDatabase.Refresh();//åˆ·æ–°æ–‡ä»¶å¤¹
+    }
+
+    //å¤åˆ¶ä¸€ä»½è‡³StreamingAssetsæ–‡ä»¶å¤¹ç›®å½•å†…
+    private static void CopyAllFiles(string sourceDirectory, string targetDirectory)
+    {
+        if (!Directory.Exists(targetDirectory))
+        {
+            Directory.CreateDirectory(targetDirectory);
+        }
+        try
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDirectory);
+            FileSystemInfo[] fileinfos = dir.GetFileSystemInfos();//è·å–ç›®å½•ä¸‹ï¼ˆä¸åŒ…å«å­ç›®å½•ï¼‰çš„æ–‡ä»¶å’Œå­ç›®å½•
+            foreach (var fileinfo in fileinfos)
+            {
+                //åˆ¤æ–­æ˜¯å¦æ˜¯æ–‡ä»¶å¤¹
+                if (fileinfo is DirectoryInfo)
+                {
+                    if (!Directory.Exists(targetDirectory + "\\" + fileinfo.Name))
+                    {
+                        Directory.CreateDirectory(targetDirectory + "\\" + fileinfo.Name);//ç›®æ ‡ç›®å½•ä¸‹ä¸å­˜åœ¨æ­¤æ–‡ä»¶å¤¹å³åˆ›å»ºå­æ–‡ä»¶å¤¹
+                    }
+                    CopyAllFiles(fileinfo.FullName, targetDirectory + "\\" + fileinfo.Name);//é€’å½’è°ƒç”¨å¤åˆ¶å­æ–‡ä»¶å¤¹
+                }
+                else
+                {
+                    if (fileinfo.FullName.Contains(".meta"))
+                    {
+                        continue;//ç•¥è¿‡mateæ–‡ä»¶
+                    }
+                    File.Copy(fileinfo.FullName, targetDirectory + "\\" + fileinfo.Name, true);//ä¸æ˜¯æ–‡ä»¶å¤¹å³å¤åˆ¶æ–‡ä»¶
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+        AssetDatabase.Refresh();//åˆ·æ–°æ–‡ä»¶å¤¹
     }
 }

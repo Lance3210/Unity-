@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class MyGUISlider : MyGUIControlBase {
+public class MyGUISlider : MyGUIControlBase
+{
 	[Header("Slider Property")]
 	public float minValue;
 	public float maxValue = 1;
@@ -10,8 +11,10 @@ public class MyGUISlider : MyGUIControlBase {
 	public SliderType type = SliderType.Horizontal;
 	public GUIStyle thumbStyle;
 	public event UnityAction<float> dragEvent;
-	protected override void Style() {
-		switch (type) {
+	protected override void Style()
+	{
+		switch (type)
+		{
 			case SliderType.Horizontal:
 				nowValue = GUI.HorizontalSlider(pos.RectPos, nowValue, minValue, maxValue, style, thumbStyle);
 				break;
@@ -19,13 +22,16 @@ public class MyGUISlider : MyGUIControlBase {
 				nowValue = GUI.VerticalSlider(pos.RectPos, nowValue, minValue, maxValue, style, thumbStyle);
 				break;
 		}
-		if (oldValue != nowValue) {
+		if (oldValue != nowValue)
+		{
 			oldValue = nowValue;
 			dragEvent?.Invoke(nowValue);
 		}
 	}
-	protected override void NoStyle() {
-		switch (type) {
+	protected override void NoStyle()
+	{
+		switch (type)
+		{
 			case SliderType.Horizontal:
 				nowValue = GUI.HorizontalSlider(pos.RectPos, nowValue, minValue, maxValue);
 				break;
@@ -33,13 +39,15 @@ public class MyGUISlider : MyGUIControlBase {
 				nowValue = GUI.VerticalSlider(pos.RectPos, nowValue, minValue, maxValue);
 				break;
 		}
-		if (oldValue != nowValue) {
+		if (oldValue != nowValue)
+		{
 			oldValue = nowValue;
 			dragEvent?.Invoke(nowValue);
 		}
 	}
 }
-public enum SliderType {
+public enum SliderType
+{
 	Horizontal,
 	Vertical
 }

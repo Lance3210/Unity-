@@ -40,17 +40,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3434430098032888411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9cdfd57b7103af48b60da75a54911f6, type: 3}
+  m_Script: {fileID: 11500000, guid: bdc9c9c6dbcacb749a3f742432ed31dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pos:
     offset: {x: 0, y: 0}
-    w: 100
-    h: 100
+    w: 0
+    h: 0
     screenAlign: 0
     selfAlign: 0
   content:
-    m_Text: Label
+    m_Text: 
     m_Image: {fileID: 0}
     m_Tooltip: 
   isOpenStyle: 0

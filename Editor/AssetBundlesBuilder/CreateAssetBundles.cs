@@ -2,41 +2,63 @@ using UnityEditor;
 using System.IO;
 
 /// <summary>
-/// 用于创建AB包
+/// 用于创建AB包，默认使用LZ4压缩算法
 /// </summary>
 public class CreateAssetBundles {
 	[MenuItem("Assets/Build AssetBundles/PC")]
-	static void BuildAllAssetBundles() {
+	public static void BuildAllAssetBundles() {
 		string assetBundleDirectory = "Assets/AssetBundles/PC";//保存在工程文件夹的路径
 		if (!Directory.Exists(assetBundleDirectory)) {
 			Directory.CreateDirectory(assetBundleDirectory);
 		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/PC");
-	}
+		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+			BuildAssetBundleOptions.ChunkBasedCompression,
+			BuildTarget.StandaloneWindows);
+		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/PC");//复制一份在流文件夹
+        AssetDatabase.Refresh();//刷新文件夹
+    }
 
 	[MenuItem("Assets/Build AssetBundles/IOS")]
-	static void BuildAllAssetBundles_IOS() {
+    public static void BuildAllAssetBundles_IOS() {
 		string assetBundleDirectory = "Assets/AssetBundles/IOS";//保存在工程文件夹的路径
 		if (!Directory.Exists(assetBundleDirectory)) {
 			Directory.CreateDirectory(assetBundleDirectory);
 		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/IOS");
-	}
+		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+			BuildAssetBundleOptions.ChunkBasedCompression,
+			BuildTarget.StandaloneWindows);
+		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/IOS");//复制一份在流文件夹
+        AssetDatabase.Refresh();//刷新文件夹
+    }
 
 	[MenuItem("Assets/Build AssetBundles/Android")]
-	static void BuildAllAssetBundles_Android() {
+    public static void BuildAllAssetBundles_Android() {
 		string assetBundleDirectory = "Assets/AssetBundles/Android";//保存在工程文件夹的路径
 		if (!Directory.Exists(assetBundleDirectory)) {
 			Directory.CreateDirectory(assetBundleDirectory);
 		}
-		BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Android");
-	}
+		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+			BuildAssetBundleOptions.ChunkBasedCompression,
+			BuildTarget.StandaloneWindows);
+		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Android");//复制一份在流文件夹
+        AssetDatabase.Refresh();//刷新文件夹
+    }
 
-	//复制一份至StreamingAssets文件夹目录内
-	static void CopyAllFiles(string sourceDirectory, string targetDirectory) {
+	[MenuItem("Assets/Build AssetBundles/Other")]
+    public static void BuildAllAssetBundles_Other() {
+		string assetBundleDirectory = "Assets/AssetBundles/Other";//保存在工程文件夹的路径
+		if (!Directory.Exists(assetBundleDirectory)) {
+			Directory.CreateDirectory(assetBundleDirectory);
+		}
+		BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+			BuildAssetBundleOptions.ChunkBasedCompression,
+			BuildTarget.StandaloneWindows);
+		CopyAllFiles(assetBundleDirectory, "Assets/StreamingAssets/Other");//复制一份在流文件夹
+        AssetDatabase.Refresh();//刷新文件夹
+    }
+
+    //复制一份至StreamingAssets文件夹目录内
+    private static void CopyAllFiles(string sourceDirectory, string targetDirectory) {
 		if (!Directory.Exists(targetDirectory)) {
 			Directory.CreateDirectory(targetDirectory);
 		}
@@ -61,6 +83,7 @@ public class CreateAssetBundles {
 		}
 		catch {
 			throw;
-		}
-	}
+        }
+        AssetDatabase.Refresh();//刷新文件夹
+    }
 }

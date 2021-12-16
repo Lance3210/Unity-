@@ -40,17 +40,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4145318849402432036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad578bd813b79e48b585a4f94f3e352, type: 3}
+  m_Script: {fileID: 11500000, guid: a11e04e8322f85f44b5540e8d047ed44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pos:
     offset: {x: 0, y: 0}
-    w: 100
-    h: 20
-    screenAlign: 4
-    selfAlign: 4
+    w: 0
+    h: 0
+    screenAlign: 0
+    selfAlign: 0
   content:
-    m_Text: Slider
+    m_Text: 
     m_Image: {fileID: 0}
     m_Tooltip: 
   isOpenStyle: 0
